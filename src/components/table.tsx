@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Table,
   TableHead,
@@ -7,6 +8,23 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
+
+const numberFormatter = new Intl.NumberFormat('zh-CN', {
+  minimumFractionDigits: 2,
+});
+
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const formatDateString = (dateString: Date | null) => {
+  if (!dateString) {
+    return '----年--月--日';
+  }
+  return dateFormatter.format(new Date(dateString));
+};
 
 interface Gs {
   id: string;
@@ -24,7 +42,7 @@ interface Gs {
   audit_fee: number;
   audit_score: number;
   remark: string;
-  state: 'Accepted' | 'InReview' | 'Draft' | 'Reported' | 'Finalized' | 'Archived';
+  state: 'Accepted' | 'InReview' | 'Draft' | 'Reported' | 'Finalized' | 'Archived' | 'Returned';
 }
 
 function auditStatusToZh(status: Gs['state']): string {
@@ -35,66 +53,57 @@ function auditStatusToZh(status: Gs['state']): string {
     case 'Reported': return '报告审批';
     case 'Finalized': return '审结';
     case 'Archived': return '归档';
+    case 'Returned': return '退件';
     default: return '';
   }
 }
 
-export default function GsTable({ gs }: { gs: Gs[] }) {
-
-  const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
-  const numberFormatter = new Intl.NumberFormat('zh-CN', {
-    minimumFractionDigits: 2,
-  });
+function GsTable({ gs }: { gs: Gs[] }) {
 
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>项目编号</TableHeaderCell>
-          <TableHeaderCell>项目名称</TableHeaderCell>
-          <TableHeaderCell>审核阶段</TableHeaderCell>
-          <TableHeaderCell>建设单位</TableHeaderCell>
-          <TableHeaderCell>送审日期</TableHeaderCell>
-          <TableHeaderCell>审定日期</TableHeaderCell>
-          <TableHeaderCell>送审金额</TableHeaderCell>
-          <TableHeaderCell>审定金额</TableHeaderCell>
-          <TableHeaderCell>其中：建安费</TableHeaderCell>
-          <TableHeaderCell>前期费用</TableHeaderCell>
-          <TableHeaderCell>预备费</TableHeaderCell>
-          <TableHeaderCell>专管员</TableHeaderCell>
-          <TableHeaderCell>审核中介</TableHeaderCell>
-          <TableHeaderCell>审核服务费</TableHeaderCell>
-          <TableHeaderCell>审核服务评分</TableHeaderCell>
-          <TableHeaderCell>备注</TableHeaderCell>
+          <TableHeaderCell className="text-center">项目编号</TableHeaderCell>
+          <TableHeaderCell className="text-center">项目名称</TableHeaderCell>
+          <TableHeaderCell className="text-center">审核阶段</TableHeaderCell>
+          <TableHeaderCell className="text-center">建设单位</TableHeaderCell>
+          <TableHeaderCell className="text-center">送审日期</TableHeaderCell>
+          <TableHeaderCell className="text-center">审定日期</TableHeaderCell>
+          <TableHeaderCell className="text-center">送审金额</TableHeaderCell>
+          <TableHeaderCell className="text-center">审定金额</TableHeaderCell>
+          <TableHeaderCell className="text-center">核减金额</TableHeaderCell>
+          <TableHeaderCell className="text-center">核减率</TableHeaderCell>
+          <TableHeaderCell className="text-center">专管员</TableHeaderCell>
+          <TableHeaderCell className="text-center">审核中介</TableHeaderCell>
+          <TableHeaderCell className="text-center">备注</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {gs.map((item) => (
-          <TableRow key={item.id}>
-            <TableCell>{item.id}</TableCell>
-            <TableCell>{item.proj_name}</TableCell>
-            <TableCell>{auditStatusToZh(item.state)}</TableCell>
-            <TableCell>{item.owner}</TableCell>
-            <TableCell>{dateFormatter.format(new Date(item.submit_date))}</TableCell>
-            <TableCell>{dateFormatter.format(new Date(item.approve_date))}</TableCell>
-            <TableCell>{numberFormatter.format(item.submit_amount)}</TableCell>
-            <TableCell>{numberFormatter.format(item.approve_amount)}</TableCell>
-            <TableCell>{numberFormatter.format(item.construction_cost)}</TableCell>
-            <TableCell>{numberFormatter.format(item.pre_cost)}</TableCell>
-            <TableCell>{numberFormatter.format(item.reserve_fund)}</TableCell>
-            <TableCell>{item.audit_manager}</TableCell>
-            <TableCell>{item.audit_agency}</TableCell>
-            <TableCell>{numberFormatter.format(item.audit_fee)}</TableCell>
-            <TableCell>{item.audit_score}</TableCell>
-            <TableCell>{item.remark}</TableCell>
-          </TableRow>
-        ))}
+        {gs.map((item) => {
+          const reduced_amount = item.submit_amount - item.approve_amount;
+          const reduction_rate = item.submit_amount ? (reduced_amount / item.submit_amount) * 100 : 0;
+          return (
+            <TableRow key={item.id}>
+              <TableCell>{item.id}</TableCell>
+              <TableCell><div className="whitespace-normal w-64">{item.proj_name}</div></TableCell>
+              <TableCell className="text-center">{auditStatusToZh(item.state)}</TableCell>
+              <TableCell>{item.owner}</TableCell>
+              <TableCell>{formatDateString(item.submit_date)}</TableCell>
+              <TableCell>{formatDateString(item.approve_date)}</TableCell>
+              <TableCell className="text-right">{numberFormatter.format(item.submit_amount)}</TableCell>
+              <TableCell className="text-right">{numberFormatter.format(item.approve_amount)}</TableCell>
+              <TableCell className="text-right">{numberFormatter.format(reduced_amount)}</TableCell>
+              <TableCell className="text-right">{reduction_rate.toFixed(1)}%</TableCell>
+              <TableCell>{item.audit_manager}</TableCell>
+              <TableCell>{item.audit_agency}</TableCell>
+              <TableCell><div className="whitespace-normal w-48">{item.remark}</div></TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );
 }
+
+export default React.memo(GsTable);
