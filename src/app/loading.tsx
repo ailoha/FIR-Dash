@@ -3,7 +3,7 @@ import Search from '../components/search';
 
 export default async function Loading() {
   return (
-    <main className="p-4 md:p-10 mx-auto max-w-7xl">
+    <main className="p-4 md:p-10 mx-auto max-w-[100rem]">
       <Title>源城区财政投资评审中心审核项目一览表</Title>
       <Text></Text>
       <Search disabled />
