@@ -15,8 +15,10 @@ export default async function IndexPage({
     .from('gs')
     .select(`
       id,
+      status,
       proj_name,
       owner,
+      fund_source,
       submit_date,
       approve_date,
       submit_amount,
@@ -28,8 +30,7 @@ export default async function IndexPage({
       audit_manager,
       audit_fee,
       audit_score,
-      remark,
-      state
+      remark
     `)
     .filter('id', 'ilike', `%${search}%`)
     .filter('proj_name', 'ilike', `%${search}%`)
@@ -44,7 +45,7 @@ export default async function IndexPage({
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title>概算审核项目一览表</Title>
+      <Title>源城区财政投资评审中心审核项目一览表</Title>
       <Text></Text>
       <Search />
       <Card className="mt-6">
