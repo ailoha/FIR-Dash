@@ -1,0 +1,18 @@
+.always-scrollbar::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+}
+  
+.always-scrollbar::-webkit-scrollbar-track {
+  background-color: #f9fafb; /* gray-50 */
+}
+  
+.always-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e5e7eb; /* gray-200 */
+  border-radius: 4px;
+}
+  
+.always-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af; /* gray-400 */
+}
+  
