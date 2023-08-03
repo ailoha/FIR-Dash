@@ -4,7 +4,7 @@ import '../styles/module.css';
 
 import React, { useState } from 'react';
 import { Button } from '@tremor/react';
-import Modal from './modal';
+import ProjectDetails from './project-details';
 import {
   Table,
   TableHead,
@@ -53,46 +53,56 @@ interface Gs {
 }
 
 function auditStatusToZh(status: Gs['status']): JSX.Element {
-  let statusClass = '';
+  let statusClass = 'inline-flex items-center rounded-md px-2 py-1 ring-1 ring-inset ring-opacity-10 text-xs font-medium font-mono';
+  let statusColor = '';
   let statusText = '';
 
   switch (status) {
     case 'Accepted':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-amber-50 ring-amber-500 ring-opacity-10 text-amber-600';
+      statusColor = 'amber';
       statusText = '接审';
       break;
     case 'InReview':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-green-50 ring-green-500 ring-opacity-10 text-green-600';
+      statusColor = 'green';
       statusText = '在审';
       break;
     case 'Suspended':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-red-50 ring-red-500 ring-opacity-10 text-red-600';
+      statusColor = 'red';
       statusText = '暂停';
       break;
     case 'Draft':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-teal-50 ring-teal-500 ring-opacity-10 text-teal-600';
+      statusColor = 'teal';
       statusText = '征求意见';
       break;
     case 'Reported':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-sky-50 ring-sky-500 ring-opacity-10 text-sky-600';
+      statusColor = 'sky';
       statusText = '报告审批';
       break;
     case 'Finalized':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-blue-50 ring-blue-500 ring-opacity-10 text-blue-600';
+      statusColor = 'blue';
       statusText = '审结';
       break;
     case 'Archived':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-violet-50 ring-violet-500 ring-opacity-10 text-violet-600';
+      statusColor = 'violet';
       statusText = '归档';
       break;
     case 'Returned':
-      statusClass = 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset font-mono bg-slate-50 ring-slate-500 ring-opacity-10 text-slate-600';
+      statusColor = 'slate';
       statusText = '退件';
       break;
     default: return <></>;
   }
 
-  return <span className={statusClass}>{statusText}</span>;
+  return (
+    <span className={`${statusClass}
+      bg-${statusColor}-50
+      ring-${statusColor}-500
+      text-${statusColor}-600
+      hover:bg-${statusColor}-100
+      hover:ring-${statusColor}-600
+      hover:text-${statusColor}-700
+    `}>{statusText}</span>
+  );
 }
 
 function GsTable({ gs }: { gs: Gs[] }) {
@@ -159,7 +169,7 @@ function GsTable({ gs }: { gs: Gs[] }) {
           })}
         </TableBody>
       </Table>
-      {isOpen && <Modal item={selectedItem} onClose={handleClose} />}
+      {isOpen && <ProjectDetails item={selectedItem} onClose={handleClose} />}
     </>
   );
 }
