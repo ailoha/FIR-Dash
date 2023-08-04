@@ -12,81 +12,9 @@ import {
   Button
 } from '@tremor/react';
 import ProjectDetails from './project-details';
-import { formatAmount, formatDate } from '../utils/formatting';
+import { formatAmount, formatDate, formatStatus } from '../utils/formatter';
+import { Gs } from '../utils/tableInterface'; 
 import '../styles/module.css';
-
-interface Gs {
-  id: string;
-  proj_name: string;
-  owner: string;
-  fund_source: string;
-  submit_date: Date;
-  approve_date: Date;
-  submit_amount: number;
-  approve_amount: number;
-  construction_cost: number;
-  pre_cost: number;
-  reserve_fund: number;
-  audit_agency: string;
-  audit_manager: string;
-  audit_fee: number;
-  audit_score: number;
-  remark: string;
-  status: 'Accepted' | 'InReview' | 'Suspended' | 'Draft' | 'Reported' | 'Finalized' | 'Archived' | 'Returned';
-}
-
-function auditStatusToZh(status: Gs['status']): JSX.Element {
-  let statusClass = 'inline-flex items-center rounded-md px-2 py-1 ring-1 ring-inset ring-opacity-10 text-xs font-medium font-mono';
-  let statusColor = '';
-  let statusText = '';
-
-  switch (status) {
-    case 'Accepted':
-      statusColor = 'amber';
-      statusText = '接审';
-      break;
-    case 'InReview':
-      statusColor = 'green';
-      statusText = '在审';
-      break;
-    case 'Suspended':
-      statusColor = 'red';
-      statusText = '暂停';
-      break;
-    case 'Draft':
-      statusColor = 'cyan';
-      statusText = '征求意见';
-      break;
-    case 'Reported':
-      statusColor = 'sky';
-      statusText = '报告审批';
-      break;
-    case 'Finalized':
-      statusColor = 'blue';
-      statusText = '审结';
-      break;
-    case 'Archived':
-      statusColor = 'violet';
-      statusText = '归档';
-      break;
-    case 'Returned':
-      statusColor = 'slate';
-      statusText = '退件';
-      break;
-    default: return <></>;
-  }
-
-  return (
-    <span className={`${statusClass}
-      bg-${statusColor}-50
-      ring-${statusColor}-500
-      text-${statusColor}-600
-      hover:bg-${statusColor}-100
-      hover:ring-${statusColor}-600
-      hover:text-${statusColor}-700
-    `}>{statusText}</span>
-  );
-}
 
 function GsTable({ gs }: { gs: Gs[] }) {
 
@@ -132,7 +60,7 @@ function GsTable({ gs }: { gs: Gs[] }) {
                 <TableCell>{item.id}</TableCell>
                 <TableCell className="text-center">
                   <Button variant="light" onClick={() => handleOpen(item)}>
-                    {auditStatusToZh(item.status)}
+                    {formatStatus(item.status)}
                   </Button>
                 </TableCell>
                 <TableCell><div className="whitespace-normal w-64">{item.proj_name}</div></TableCell>
