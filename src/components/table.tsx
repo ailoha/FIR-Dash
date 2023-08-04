@@ -12,7 +12,7 @@ import {
   Button
 } from '@tremor/react';
 import ProjectDetails from './project-details';
-import { numberFormatter, dateFormatter } from '../utils/formatting';
+import { formatAmount, formatDate } from '../utils/formatting';
 import '../styles/module.css';
 
 interface Gs {
@@ -54,7 +54,7 @@ function auditStatusToZh(status: Gs['status']): JSX.Element {
       statusText = '暂停';
       break;
     case 'Draft':
-      statusColor = 'teal';
+      statusColor = 'cyan';
       statusText = '征求意见';
       break;
     case 'Reported':
@@ -138,11 +138,11 @@ function GsTable({ gs }: { gs: Gs[] }) {
                 <TableCell><div className="whitespace-normal w-64">{item.proj_name}</div></TableCell>
                 <TableCell>{item.fund_source}</TableCell>
                 <TableCell>{item.owner}</TableCell>
-                <TableCell>{dateFormatter(item.submit_date)}</TableCell>
-                <TableCell>{dateFormatter(item.approve_date)}</TableCell>
-                <TableCell className="text-right">{numberFormatter.format(item.submit_amount)}</TableCell>
-                <TableCell className="text-right">{numberFormatter.format(item.approve_amount)}</TableCell>
-                <TableCell className="text-right">{numberFormatter.format(reduced_amount)}</TableCell>
+                <TableCell>{formatDate(item.submit_date)}</TableCell>
+                <TableCell>{formatDate(item.approve_date)}</TableCell>
+                <TableCell className="text-right">{formatAmount(item.submit_amount)}</TableCell>
+                <TableCell className="text-right">{formatAmount(item.approve_amount)}</TableCell>
+                <TableCell className="text-right">{formatAmount(reduced_amount)}</TableCell>
                 <TableCell className="text-right">{reduction_rate.toFixed(1)}%</TableCell>
                 <TableCell>{item.audit_manager}</TableCell>
                 <TableCell>{item.audit_agency}</TableCell>
