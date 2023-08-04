@@ -1,10 +1,6 @@
 'use client';
 
-import '../styles/module.css';
-
-import React, { useState } from 'react';
-import { Button } from '@tremor/react';
-import ProjectDetails from './project-details';
+import React, { useState, useCallback } from 'react';
 import {
   Table,
   TableHead,
@@ -12,25 +8,12 @@ import {
   TableHeaderCell,
   TableBody,
   TableCell,
-  Text
+  Text,
+  Button
 } from '@tremor/react';
-
-const numberFormatter = new Intl.NumberFormat('zh-CN', {
-  minimumFractionDigits: 2,
-});
-
-const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
-
-const formatDateString = (dateString: Date | null) => {
-  if (!dateString) {
-    return '----年--月--日';
-  }
-  return dateFormatter.format(new Date(dateString));
-};
+import ProjectDetails from './project-details';
+import { numberFormatter, dateFormatter } from '../utils/formatting';
+import '../styles/module.css';
 
 interface Gs {
   id: string;
@@ -110,14 +93,14 @@ function GsTable({ gs }: { gs: Gs[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Gs | null>(null);
 
-  const handleOpen = (item: Gs) => {
+  const handleOpen = useCallback((item: Gs) => {
     setSelectedItem(item);
     setIsOpen(true);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   return (
     <>
@@ -155,8 +138,8 @@ function GsTable({ gs }: { gs: Gs[] }) {
                 <TableCell><div className="whitespace-normal w-64">{item.proj_name}</div></TableCell>
                 <TableCell>{item.fund_source}</TableCell>
                 <TableCell>{item.owner}</TableCell>
-                <TableCell>{formatDateString(item.submit_date)}</TableCell>
-                <TableCell>{formatDateString(item.approve_date)}</TableCell>
+                <TableCell>{dateFormatter(item.submit_date)}</TableCell>
+                <TableCell>{dateFormatter(item.approve_date)}</TableCell>
                 <TableCell className="text-right">{numberFormatter.format(item.submit_amount)}</TableCell>
                 <TableCell className="text-right">{numberFormatter.format(item.approve_amount)}</TableCell>
                 <TableCell className="text-right">{numberFormatter.format(reduced_amount)}</TableCell>
