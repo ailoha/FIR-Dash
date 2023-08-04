@@ -1,8 +1,15 @@
-export const numberFormatter = new Intl.NumberFormat('zh-CN', {
-  minimumFractionDigits: 2,
-});
-  
-export const dateFormatter = (dateString: Date | null) => {
+export const formatAmount = (amount: number | null) => {
+  if (amount === null || amount === undefined) {
+    return '-.--';
+  } else {
+    const amountFormat = new Intl.NumberFormat('zh-CN', {
+      minimumFractionDigits: 2,
+    });
+    return amountFormat.format(amount);
+  }
+};
+
+export const formatDate = (dateString: Date | null) => {
   if (!dateString) {
     return '----年--月--日';
   }
