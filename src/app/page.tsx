@@ -32,6 +32,7 @@ export default async function IndexPage({
       audit_score,
       remark
     `)
+    .order('id', { ascending: true })
     .filter('id', 'ilike', `%${search}%`)
     .filter('proj_name', 'ilike', `%${search}%`)
     .filter('owner', 'ilike', `%${search}%`)
