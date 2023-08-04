@@ -44,7 +44,7 @@ export default function ProjectDetails({ item, onClose }: ProjectDetailsProps) {
             </div>
           </div>
         </div>
-        <div className="bg-white px-4 py-3 sm:justify-end sm:flex sm:flex-row sm:px-6">
+        <div className="bg-white px-4 py-4 sm:justify-end sm:flex sm:flex-row sm:px-6">
           <button
             type="button"
             className="sm:mr-3 inline-flex justify-center w-full sm:w-auto px-3 py-2 rounded-md text-sm font-mono shadow-sm text-white bg-blue-600 hover:bg-blue-500"

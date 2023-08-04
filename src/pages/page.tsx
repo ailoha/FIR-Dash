@@ -1,5 +1,5 @@
 import { Card, Title, Text } from '@tremor/react';
-import supabase from '../lib/supabase';
+import supabase from '../utils/supabase';
 import Search from '../components/search';
 import GsTable from '../components/table';
 
