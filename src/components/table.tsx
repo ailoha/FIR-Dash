@@ -11,9 +11,9 @@ import {
   Text,
   Button
 } from '@tremor/react';
+import { Gs } from '../lib/supabase'; 
 import ProjectDetails from './project-details';
 import { formatAmount, formatDate, formatStatus } from '../utils/formatter';
-import { Gs } from '../utils/tableInterface'; 
 import '../styles/module.css';
 
 function GsTable({ gs }: { gs: Gs[] }) {

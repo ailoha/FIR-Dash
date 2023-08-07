@@ -33,12 +33,7 @@ export default async function IndexPage({
       remark
     `)
     .order('id', { ascending: true })
-    .filter('id', 'ilike', `%${search}%`)
-    .filter('proj_name', 'ilike', `%${search}%`)
-    .filter('owner', 'ilike', `%${search}%`)
-    .filter('audit_agency', 'ilike', `%${search}%`)
-    .filter('audit_manager', 'ilike', `%${search}%`)
-    .filter('remark', 'ilike', `%${search}%`);
+    .filter('proj_name', 'ilike', `%${search}%`);
 
   if (error) {
     console.error('Error fetching gs-table:', error);

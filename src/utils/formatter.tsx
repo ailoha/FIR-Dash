@@ -1,4 +1,4 @@
-import { AuditStatus } from './tableInterface';
+import { AuditStatus } from '../lib/supabase';
 
 export const formatAmount = (amount: number | null) => {
   if (amount === null || amount === undefined) {
