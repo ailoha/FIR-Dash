@@ -1,18 +1,35 @@
-/* 表格滚动条常显 */
-.always-scrollbar::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 8px;
+/* 固定表头 */
+.sticky-header th,
+.sticky-column,
+.sticky-top {
+  position: sticky; /* 设置为粘性位置 */
+  background-color: white; /* 背景颜色 */
 }
-  
-.always-scrollbar::-webkit-scrollbar-track {
-  background-color: #f9fafb; /* gray-50 */
+
+.sticky-header th {
+  top: 0;
+  z-index: 1; /* 设置表头显示在表身之上 */ 
 }
-  
-.always-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #e5e7eb; /* gray-200 */
-  border-radius: 4px;
+
+.sticky-column:nth-child(1) {
+  left: 0;
+  z-index: 2; /* 设置第一列显示在其他列之上 */
 }
-  
-.always-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af; /* gray-400 */
+.sticky-column:nth-child(2) {
+  left: 116px;
+  z-index: 2; /* 设置第二列显示在其他列之上，并距最左边正好与第一列同宽 */
+}
+
+.sticky-top:nth-child(1) {
+  left: 0;
+  z-index: 3; /* 设置表头的第一列显示在其他列之上 */
+}
+.sticky-top:nth-child(2) {
+  left: 116px;
+  z-index: 3; /* 设置表头第二列显示在其他列之上，并距最左边正好与第一列同宽 */
+}
+
+.scrollable-body {
+  max-height: 70vh; /* 设置最大高度为页面的70% */
+  overflow: auto; /* 允许水平和垂直滚动 */
 }

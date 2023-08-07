@@ -32,11 +32,11 @@ function GsTable({ gs }: { gs: Gs[] }) {
 
   return (
     <>
-      <Table className="always-scrollbar">
-        <TableHead>
+      <Table className="scrollable-body">
+        <TableHead className="sticky-header">
           <TableRow>
-            <TableHeaderCell className="text-center">项目编号</TableHeaderCell>
-            <TableHeaderCell className="text-center"></TableHeaderCell>
+            <TableHeaderCell className="text-center sticky-top">项目编号</TableHeaderCell>
+            <TableHeaderCell className="text-center sticky-top"></TableHeaderCell>
             <TableHeaderCell className="text-center">项目名称</TableHeaderCell>
             <TableHeaderCell className="text-center">资金性质</TableHeaderCell>
             <TableHeaderCell className="text-center">建设单位</TableHeaderCell>
@@ -57,8 +57,8 @@ function GsTable({ gs }: { gs: Gs[] }) {
             const reduction_rate = item.submit_amount ? (reduced_amount / item.submit_amount) * 100 : 0;
             return (
               <TableRow key={item.id}>
-                <TableCell>{item.id}</TableCell>
-                <TableCell className="text-center">
+                <TableCell className="sticky-column">{item.id}</TableCell>
+                <TableCell className="text-center sticky-column">
                   <Button variant="light" onClick={() => handleOpen(item)}>
                     {formatStatus(item.status)}
                   </Button>

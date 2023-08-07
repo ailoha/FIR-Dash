@@ -43,7 +43,7 @@ export default function Search({ disabled }: { disabled?: boolean }) {
           id="search"
           disabled={disabled}
           className="h-10 block w-full rounded-md border border-gray-200 pl-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          placeholder="关键词搜索"
+          placeholder="项目名称关键词搜索"
           spellCheck={false}
           onChange={(e) => handleSearch(e.target.value)}
         />
