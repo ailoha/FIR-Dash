@@ -1,9 +1,10 @@
 import type { Config } from 'tailwindcss';
 
 export default {
+  mode: 'jit',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx,css}',
-    './node_modules/@tremor/**/*.{js,ts,jsx,tsx,mdx}'
+    './node_modules/@tremor/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     transparent: 'transparent',

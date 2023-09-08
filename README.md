@@ -21,7 +21,7 @@ This is a starter template using the following stack:
 - Framework - [Next.js 13](https://nextjs.org/13)
 - Language - [TypeScript](https://www.typescriptlang.org)
 - Auth - [NextAuth.js](https://next-auth.js.org)
-- Database - [PlanetScale](https://planetscale.com)
+- Database - [Supabase](https://supabase.com)
 - Deployment - [Vercel](https://vercel.com/docs/concepts/next.js/overview)
 - Styling - [Tailwind CSS](https://tailwindcss.com)
 - Components - [Tremor](https://www.tremor.so)
