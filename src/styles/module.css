@@ -1,6 +1,6 @@
 /* 固定表头 */
 .sticky-header th,
-.sticky-column,
+.sticky-header-top,
 .sticky-top {
   position: sticky; /* 设置为粘性位置 */
   background-color: white; /* 背景颜色 */
@@ -8,28 +8,28 @@
 
 .sticky-header th {
   top: 0;
-  z-index: 1; /* 设置表头显示在表身之上 */ 
+  z-index: 5; /* 设置表头显示在表身之上 */
 }
-
-.sticky-column:nth-child(1) {
+.sticky-header-top:nth-child(1) {
   left: 0;
-  z-index: 2; /* 设置第一列显示在其他列之上 */
+  z-index: 10; /* 设置表头的第一列显示在其他列之上 */
 }
-.sticky-column:nth-child(2) {
+.sticky-header-top:nth-child(2) {
   left: 116px;
-  z-index: 2; /* 设置第二列显示在其他列之上，并距最左边正好与第一列同宽 */
+  z-index: 10; /* 设置表头第二列显示在其他列之上，并距最左边正好与第一列同宽 */
 }
 
 .sticky-top:nth-child(1) {
   left: 0;
-  z-index: 3; /* 设置表头的第一列显示在其他列之上 */
+  z-index: 1; /* 设置的第一列显示在其他列之上 */
 }
 .sticky-top:nth-child(2) {
   left: 116px;
-  z-index: 3; /* 设置表头第二列显示在其他列之上，并距最左边正好与第一列同宽 */
+  z-index: 1; /* 设置第二列显示在其他列之上，并距最左边正好与第一列同宽 */
 }
 
+/* 设置表格高度及滚动条 */
 .scrollable-body {
   max-height: 70vh; /* 设置最大高度为页面的70% */
-  overflow: auto; /* 允许水平和垂直滚动 */
+  overflow: auto; /* 允许滚动 */
 }

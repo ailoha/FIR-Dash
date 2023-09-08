@@ -2,7 +2,7 @@ import { AuditStatus } from '../lib/supabase';
 
 export const formatAmount = (amount: number | null) => {
   if (amount === null || amount === undefined) {
-    return '-.--';
+    return '-';
   } else {
     const amountFormat = new Intl.NumberFormat('zh-CN', {
       minimumFractionDigits: 2,
@@ -13,7 +13,13 @@ export const formatAmount = (amount: number | null) => {
 
 export const formatDate = (dateString: Date | null) => {
   if (!dateString) {
-    return '----年--月--日';
+    return '-';
+  }
+
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.error(`Invalid date value: ${dateString}`);
+    return '-';
   }
     
   const dateFormat = new Intl.DateTimeFormat('zh-CN', {
@@ -22,7 +28,7 @@ export const formatDate = (dateString: Date | null) => {
     day: 'numeric',
   });
   
-  return dateFormat.format(new Date(dateString));
+  return dateFormat.format(date);
 };
 
 export function formatStatus(status: AuditStatus): JSX.Element {

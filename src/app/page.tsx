@@ -1,7 +1,7 @@
 import { Card, Title, Text } from '@tremor/react';
 import supabase from '../lib/supabase';
-import Search from '../components/search';
-import GsTable from '../components/table';
+// import Search from '../components/Search';
+import GsTable from '../components/Table';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,7 +49,7 @@ export default async function IndexPage({
         </span>
         {' '}可查看项目详情 ）
       </Text>
-      <Search />
+      {/* <Search /> */}
       <Card className="mt-6">
         <GsTable gs={gs || []} />
       </Card>

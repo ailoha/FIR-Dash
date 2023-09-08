@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
-import Modal from './modal'
+import Modal from './ui/Modal'
 
 interface ProjectDetailsProps {
   item: any; // replace 'any' with the actual type of 'item'
+  title: string;
+  content: string;
   onClose: () => void;
 }
 
-export default function ProjectDetails({ item, onClose }: ProjectDetailsProps) {
+export default function ProjectDetails({ item, title, content, onClose }: ProjectDetailsProps) {
   const [open, setOpen] = useState(true)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -29,16 +31,11 @@ export default function ProjectDetails({ item, onClose }: ProjectDetailsProps) {
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
               <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                测试标题
+                {title}
               </Dialog.Title>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">
-                  测试文本 行1
-                  测试文本 行2
-                  测试文本 行3
-                  测试文本 行4
-                  测试文本 行5
-                  测试文本 行6
+                  {content}
                 </p>
               </div>
             </div>
